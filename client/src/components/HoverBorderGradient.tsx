@@ -58,7 +58,7 @@ export function HoverBorderGradient({
 
     return (
         <Tag
-            onMouseEnter={(event: React.MouseEvent<HTMLDivElement>) => {
+            onMouseEnter={() => {
                 setHovered(true);
             }}
             onMouseLeave={() => setHovered(false)}

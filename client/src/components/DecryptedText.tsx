@@ -30,7 +30,7 @@ export default function DecryptedText({
     const ref = useRef<HTMLSpanElement>(null);
     const isInView = useInView(ref, { once: true });
     const iterations = useRef(0);
-    const intervalRef = useRef<number>();
+    const intervalRef = useRef<number | null>(null);
 
     const shouldAnimate = animateOn === 'hover' ? isHovered : isInView;
 
@@ -77,7 +77,7 @@ export default function DecryptedText({
         intervalRef.current = interval;
 
         return () => {
-            if (intervalRef.current !== undefined) {
+            if (intervalRef.current !== null) {
                 clearInterval(intervalRef.current);
             }
         };

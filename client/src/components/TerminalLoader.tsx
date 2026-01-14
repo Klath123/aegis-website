@@ -63,7 +63,7 @@ export default function TerminalLoader({ onComplete }: TerminalLoaderProps) {
             };
 
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const term = globalJQuery(terminalRef.current).terminal(function (command: string, term: any) {
+            globalJQuery(terminalRef.current).terminal(function (command: string, term: any) {
                 const cmd = globalJQuery.terminal.parse_command(command);
                 if (cmd.name === 'exit') {
                     exit();
