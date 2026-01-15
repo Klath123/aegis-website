@@ -1,32 +1,32 @@
-import { useState, useEffect } from "react";
-import TerminalLoader from "../components/TerminalLoader";
+// import { useState, useEffect } from "react";
+// import TerminalLoader from "../components/TerminalLoader";
 import LetterGlitch from "../components/LetterGlitch";
 import DecryptedText from "../components/DecryptedText";
 import { Terminal, TypingAnimation, AnimatedSpan } from "../components/terminal";
 import { BorderBeam } from "../components/BorderBeam";
 
 const Home = () => {
-    const [isLoading, setIsLoading] = useState(() => {
-        const hasSeenLoader = sessionStorage.getItem('aegis-loader-seen');
-        return !hasSeenLoader;
-    });
-    const [showText, setShowText] = useState(false);
+    // const [isLoading, setIsLoading] = useState(() => {
+    //     const hasSeenLoader = sessionStorage.getItem('aegis-loader-seen');
+    //     return !hasSeenLoader;
+    // });
+    // const [showText, setShowText] = useState(false);
 
-    useEffect(() => {
-        if (!isLoading) {
-            sessionStorage.setItem('aegis-loader-seen', 'true');
+    // useEffect(() => {
+    //     if (!isLoading) {
+    //         sessionStorage.setItem('aegis-loader-seen', 'true');
 
-            const timer = setTimeout(() => {
-                setShowText(true);
-            }, 1000);
+    //         const timer = setTimeout(() => {
+    //             setShowText(true);
+    //         }, 1000);
 
-            return () => clearTimeout(timer);
-        }
-    }, [isLoading]);
+    //         return () => clearTimeout(timer);
+    //     }
+    // }, [isLoading]);
 
-    if (isLoading) {
-        return <TerminalLoader onComplete={() => setIsLoading(false)} />;
-    }
+    // if (isLoading) {
+    //     return <TerminalLoader onComplete={() => setIsLoading(false)} />;
+    // }
 
     return (
         <>
@@ -45,7 +45,7 @@ const Home = () => {
             <div className="relative">
                 {/* Hero Section - Full viewport height minus navbar */}
                 <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8">
-                    {showText && (
+                    
                         <h1 className="z-10 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold font-mono tracking-tighter text-white text-center">
                             <DecryptedText
                                 text="Decrypt.Decode.Decipher"
@@ -57,7 +57,7 @@ const Home = () => {
                                 className="drop-shadow-[0_0_18px_rgba(255,255,255,0.65)]"
                             />
                         </h1>
-                    )}
+                    
                 </div>
 
                 {/* About Us Section with BorderBeam */}
