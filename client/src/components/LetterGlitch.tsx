@@ -24,7 +24,7 @@ interface RGB {
 
 const LetterGlitch = ({
     glitchColors = ['#2b4539', '#61dca3', '#61b3dc'],
-    glitchSpeed = 50,
+    glitchSpeed = 30,
     centerVignette = false,
     outerVignette = true,
     smooth = true,
@@ -38,10 +38,13 @@ const LetterGlitch = ({
     const lastGlitchTime = useRef(Date.now());
 
     const lettersAndSymbols = Array.from(characters);
-
+   const density =
+  window.innerWidth < 640 ? 1.9 :
+  window.innerWidth < 1024 ? 1.9 :
+  1.5;
     const fontSize = 16;
-    const charWidth = 10;
-    const charHeight = 20;
+    const charWidth = 10 * density;
+const charHeight = 20 * density;
 
     const getRandomChar = () => {
         return lettersAndSymbols[Math.floor(Math.random() * lettersAndSymbols.length)];
@@ -137,7 +140,7 @@ const LetterGlitch = ({
     const updateLetters = () => {
         if (!letters.current || letters.current.length === 0) return;
 
-        const updateCount = Math.max(1, Math.floor(letters.current.length * 0.05));
+        const updateCount = Math.max(1, Math.floor(letters.current.length * 0.015));
 
         for (let i = 0; i < updateCount; i++) {
             const index = Math.floor(Math.random() * letters.current.length);
@@ -159,7 +162,7 @@ const LetterGlitch = ({
         let needsRedraw = false;
         letters.current.forEach(letter => {
             if (letter.colorProgress < 1) {
-                letter.colorProgress += 0.05;
+              letter.colorProgress += 0.02;
                 if (letter.colorProgress > 1) letter.colorProgress = 1;
 
                 const startRgb = hexToRgb(letter.color);

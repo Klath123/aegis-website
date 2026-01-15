@@ -1,129 +1,84 @@
-import { useEffect, useRef } from 'react';
-import $ from 'jquery';
-import './TerminalLoader.css';
+import { useEffect, useRef } from "react";
+import { Terminal } from "xterm";
+import { FitAddon } from "xterm-addon-fit";
+import "xterm/css/xterm.css";
 
 interface TerminalLoaderProps {
-    onComplete: () => void;
+  onComplete: () => void;
 }
 
 export default function TerminalLoader({ onComplete }: TerminalLoaderProps) {
-    const terminalRef = useRef<HTMLDivElement>(null);
-    const tvRef = useRef<HTMLDivElement>(null);
-    const scanlinesRef = useRef<HTMLDivElement>(null);
-    const initiated = useRef(false);
+  const terminalRef = useRef<HTMLDivElement>(null);
+  const termRef = useRef<Terminal | null>(null);
 
-    useEffect(() => {
-        if (!terminalRef.current || !tvRef.current || !scanlinesRef.current || initiated.current) return;
-        initiated.current = true;
+  useEffect(() => {
+    if (!terminalRef.current) return;
 
-        // Force global jQuery for the CDN script
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (window as any).jQuery = $;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (window as any).$ = $;
+    const term = new Terminal({
+      fontFamily: "monospace",
+      fontSize: 14,
+      theme: {
+        background: "#000000",
+        foreground: "#00ff88",
+      },
+      cursorBlink: true,
+    });
 
-        // Load CSS from CDN
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = 'https://cdnjs.cloudflare.com/ajax/libs/jquery.terminal/2.42.0/css/jquery.terminal.min.css';
-        document.head.appendChild(link);
+    const fitAddon = new FitAddon();
+    term.loadAddon(fitAddon);
+    term.open(terminalRef.current);
+    fitAddon.fit();
 
-        // Load JS from CDN
-        const script = document.createElement('script');
-        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jquery.terminal/2.42.0/js/jquery.terminal.min.js';
-        script.onload = () => {
-            initTerminal();
-        };
-        document.body.appendChild(script);
+    termRef.current = term;
 
-        const initTerminal = () => {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const globalJQuery = (window as any).jQuery;
+    const boot = async () => {
+      const lines = [
+        "AEGIS SECURITY INTERFACE",
+        "",
+        "initializing trust boundary...",
+        "verifying policy integrity...",
+        "loading detection engines...",
+        "synchronizing control plane...",
+        "",
+        "Type 'exit' or click ENTER",
+      ];
 
-            const setSize = () => {
-                if (scanlinesRef.current && tvRef.current) {
-                    const height = window.innerHeight;
-                    const width = window.innerWidth;
-                    const time = (height * 2) / 170;
-                    scanlinesRef.current.style.setProperty("--time", isNaN(time) ? '2' : time.toString());
-                    tvRef.current.style.setProperty("--width", width.toString());
-                    tvRef.current.style.setProperty("--height", height.toString());
-                }
-            };
+      for (const line of lines) {
+        term.writeln(line);
+        await new Promise((r) => setTimeout(r, 120));
+      }
+    };
 
-            const exit = () => {
-                if (tvRef.current) {
-                    globalJQuery(tvRef.current).addClass('collapse');
-                    setTimeout(() => {
-                        onComplete();
-                    }, 2000);
-                } else {
-                    onComplete();
-                }
-            };
+    boot();
 
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            globalJQuery(terminalRef.current).terminal(function (command: string, term: any) {
-                const cmd = globalJQuery.terminal.parse_command(command);
-                if (cmd.name === 'exit') {
-                    exit();
-                } else {
-                    term.echo(`Command '${command}' not found. Type 'exit' to enter system.`);
-                }
-            }, {
-                greetings: `
-                         _____                                                        
-    _____           _____\\    \\        _____         ____________             _____   
-  /      |_        /    / |    |  _____\\    \\_      /            \\       _____\\    \\  
- /         \\      /    /  /___/| /     /|     |    |\\___/\\  \\\\___/|     /    / \\    | 
-|     /\\    \\    |    |__ |___|//     / /____/|     \\|____\\  \\___|/    |    |  /___/| 
-|    |  |    \\   |       \\     |     | |_____|/           |  |      ____\\    \\ |   || 
-|     \\/      \\  |     __/ __  |     | |_________    __  /   / __  /    /\\    \\|___|/ 
-|\\      /\\     \\ |\\    \\  /  \\ |\\     \\|\\        \\  /  \\/   /_/  ||    |/ \\    \\      
-| \\_____\\ \\_____\\| \\____\\/    || \\_____\\|    |\\__/||____________/||\\____\\ /____/|     
-| |     | |     || |    |____/|| |     /____/| | |||           | /| |   ||    | |     
- \\|_____|\\|_____| \\|____|   | | \\|_____|     |\\|_|/|___________|/  \\|___||____|/      
-                        |___|/         |____/                                         
-`,
-                name: 'aegis_loader',
-                prompt: 'aegis> ',
-                onInit: function () {
-                    setSize();
-                    // Boot sequence with typing effect
-                    const bootSequence = async () => {
-                        // Note: We use the 'term' instance from the closure if available, or 'this'
-                        // 'this' inside onInit refers to the terminal instance
-                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                        const t = this as any;
+    const onResize = () => fitAddon.fit();
+    window.addEventListener("resize", onResize);
 
-                        await t.echo('initializing trust boundary...', { typing: true, delay: 50 });
-                        await t.echo('verifying policy integrity...', { typing: true, delay: 50 });
-                        await t.echo('loading detection engines...', { typing: true, delay: 50 });
-                        await t.echo('synchronizing control plane...', { typing: true, delay: 50 });
-                        await t.echo('');
-                        await t.echo("Type 'exit' to enter AEGIS interface.", { typing: true, delay: 30 });
-                    };
-                    bootSequence();
-                }
-            });
+    term.onData((data) => {
+      if (data.trim().toLowerCase() === "exit") {
+        onComplete();
+      }
+    });
 
-            window.addEventListener('resize', setSize);
-            setSize();
-        };
+    return () => {
+      window.removeEventListener("resize", onResize);
+      term.dispose();
+    };
+  }, [onComplete]);
 
-        return () => {
-            // Cleanup if needed
-        };
-    }, [onComplete]);
+  return (
+    <div className="fixed inset-0 bg-black flex flex-col items-center justify-center">
+      <div
+        ref={terminalRef}
+        className="w-full h-full max-w-5xl max-h-[70vh] border border-green-500/40 rounded-lg"
+      />
 
-    return (
-        <div className="terminal-loader-container">
-            <div className="tv" ref={tvRef}>
-                <div id="terminal-mount" ref={terminalRef}></div>
-                <div className="scanlines" ref={scanlinesRef}></div>
-                <div className="flicker"></div>
-                <div className="noise"></div>
-            </div>
-        </div>
-    );
+      <button
+        onClick={onComplete}
+        className="mt-6 px-6 py-2 bg-green-400 text-black font-mono text-sm tracking-widest hover:bg-green-300 transition"
+      >
+        ENTER AEGIS →
+      </button>
+    </div>
+  );
 }
