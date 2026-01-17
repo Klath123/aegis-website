@@ -8,8 +8,8 @@ const Navbar = () => {
 
   const navItems = [
     { label: "Events", to: "/events", icon: Calendar },
-    { label: "Members", to: "/about#members", icon: Users },
-    { label: "Achievements", to: "/events#achievements", icon: Trophy },
+    { label: "Members", to: "/members", icon: Users },
+    { label: "Achievements", to: "/achievements", icon: Trophy },
   ];
 
   return (
