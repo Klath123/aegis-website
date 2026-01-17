@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Terminal, Lock, Code, Zap, KeyRound, Target } from 'lucide-react';
 
 /* -------------------- GlitchText Component -------------------- */
 
@@ -20,7 +19,7 @@ const GlitchText: React.FC<GlitchTextProps> = ({ text, className = '' }) => {
         setDisplayText(
           text
             .split('')
-            .map((char, index) => {
+            .map((_, index) => {
               if (index < iterations) return text[index];
               return chars[Math.floor(Math.random() * chars.length)];
             })
@@ -33,6 +32,7 @@ const GlitchText: React.FC<GlitchTextProps> = ({ text, className = '' }) => {
           clearInterval(glitchTimer);
           setDisplayText(text);
         }
+
       }, 30);
     }, 5000);
 
@@ -89,9 +89,8 @@ const Events: React.FC = () => {
 
             {/* SANDBOX CARD */}
             <div
-              className={`group relative transition-all duration-700 ${
-                activeCard === 'sandbox' ? 'lg:scale-[1.02]' : ''
-              }`}
+              className={`group relative transition-all duration-700 ${activeCard === 'sandbox' ? 'lg:scale-[1.02]' : ''
+                }`}
               onMouseEnter={() => setActiveCard('sandbox')}
               onMouseLeave={() => setActiveCard(null)}
             >
@@ -100,9 +99,8 @@ const Events: React.FC = () => {
 
             {/* GLITCHCRAFT CARD */}
             <div
-              className={`group relative transition-all duration-700 ${
-                activeCard === 'decipher' ? 'lg:scale-[1.02]' : ''
-              }`}
+              className={`group relative transition-all duration-700 ${activeCard === 'decipher' ? 'lg:scale-[1.02]' : ''
+                }`}
               onMouseEnter={() => setActiveCard('decipher')}
               onMouseLeave={() => setActiveCard(null)}
             >
