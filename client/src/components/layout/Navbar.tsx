@@ -6,11 +6,12 @@ const Navbar = () => {
   const [open, setOpen] = useState(false); 
   const location = useLocation(); 
  
-  const navItems = [ 
-    { label: "Events", to: "/events", icon: Calendar }, 
-    { label: "Members", to: "/about#members", icon: Users }, 
-    { label: "Achievements", to: "/events#achievements", icon: Trophy }, 
-  ]; 
+ const navItems = [
+  { label: "Events", to: "/events", icon: Calendar },
+  { label: "Members", to: "/about#members", icon: Users },
+  { label: "Achievements", to: "/achievements", icon: Trophy },
+];
+
  
   return ( 
     <nav className="fixed top-0 inset-x-0 z-50 px-4 py-4"> 

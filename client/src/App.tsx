@@ -1,3 +1,4 @@
+import Achievements from './pages/Achievements.tsx';
 import { Routes, Route } from 'react-router-dom';
 import { Layout } from './components/layout/Layout.tsx';
 import Home from './pages/Home.tsx';
@@ -13,6 +14,7 @@ function App() {
         <Route path="about" element={<About />} />
         <Route path="events" element={<Events />} />
         <Route path="contact" element={<Contact />} />
+         <Route path="achievements" element={<Achievements />} />
       </Route>
     </Routes>
   );
