@@ -8,43 +8,40 @@ const Navbar = () => {
 
   const navItems = [
     { label: "Events", to: "/events", icon: Calendar },
-    { label: "Members", to: "/members", icon: Users },
-    { label: "Achievements", to: "/achievements", icon: Trophy },
+    { label: "Members", to: "/about#members", icon: Users },
+    { label: "Achievements", to: "/events#achievements", icon: Trophy },
   ];
 
   return (
     <nav className="fixed top-0 inset-x-0 z-50 px-4 py-4">
       <div className="max-w-7xl mx-auto bg-black/60 backdrop-blur-xl border border-blue-500/20 rounded-2xl px-6 py-3 shadow-xl">
+
         <div className="flex items-center justify-between">
           {/* LOGO */}
           <Link to="/" className="group relative">
             <div className="absolute inset-0 bg-cyan-400/10 blur-xl rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <img
-              src="/Aegis.svg"
+              src="/aegis-navbar.png"
               alt="Aegis"
-              className="relative h-14 w-14 object-contain rounded-xl"
+              className="relative h-12 w-22 object-contain rounded-xl"
             />
           </Link>
 
           {/* DESKTOP */}
           <div className="hidden md:flex gap-2 font-mono text-sm">
-            {navItems.map((item) => (
+            {navItems.map(item => (
               <Link
                 key={item.label}
                 to={item.to}
-                className={`group relative flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-300 ${
-                  location.pathname === item.to
-                    ? "text-cyan-400 bg-cyan-400/10"
-                    : "text-white-300 hover:text-white hover:bg-blue-500/5"
-                }`}
-              >
-                <item.icon
-                  className={`w-4 h-4 transition-colors ${
-                    location.pathname === item.to
-                      ? "text-cyan-400"
-                      : "text-cyan-400/60 group-hover:text-cyan-400"
+                className={`group relative flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-300 ${location.pathname === item.to
+                  ? "text-cyan-400 bg-cyan-400/10"
+                  : "text-white-300 hover:text-white hover:bg-blue-500/5"
                   }`}
-                />
+              >
+                <item.icon className={`w-4 h-4 transition-colors ${location.pathname === item.to
+                  ? "text-cyan-400"
+                  : "text-cyan-400/60 group-hover:text-cyan-400"
+                  }`} />
                 {item.label}
                 <div className="absolute bottom-0 left-3 right-3 h-[1px] scale-x-0 bg-gradient-to-r from-blue-400 to-cyan-400 group-hover:scale-x-100 transition-transform origin-left duration-300" />
               </Link>
