@@ -4,6 +4,7 @@ import Home from "./pages/Home.tsx";
 import About from "./pages/About.tsx";
 import Events from "./pages/Events.tsx";
 import Contact from "./pages/Contact.tsx";
+import Achievements from './pages/Achievements.tsx';
 import Members from "./pages/Members.tsx";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="events" element={<Events />} />
         <Route path="members" element={<Members />} />
         <Route path="contact" element={<Contact />} />
+        <Route path="achievements" element={<Achievements />} />
       </Route>
     </Routes>
   );
