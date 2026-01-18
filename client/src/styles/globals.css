@@ -128,6 +128,22 @@ body {
   animation: slideUp 0.8s ease-out forwards;
 }
 
+@keyframes scroll {
+  to {
+    transform: translate(calc(-50% - 0.5rem));
+  }
+}
+
+.animate-scroll {
+  animation: scroll var(--animation-duration) var(--animation-direction) linear infinite;
+}
+
+/* Pause animation on hover - no jumping! */
+.gallery-hover-slow:hover .animate-scroll,
+.gallery-hover-medium:hover .animate-scroll {
+  animation-play-state: paused;
+}
+
 .stagger-1 {
   animation-delay: 0.1s;
 }
