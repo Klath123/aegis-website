@@ -13,8 +13,17 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 inset-x-0 z-50 px-4 py-4">
-      <div className="max-w-7xl mx-auto bg-black/60 backdrop-blur-xl border border-blue-500/20 rounded-2xl px-6 py-3 shadow-xl">
+    <nav className="fixed top-0 inset-x-0 z-50 px-4 py-4 fade-in-blur" style={{ animationDelay: '2s', opacity: 0, animationFillMode: 'forwards' }}>
+      <div
+        className="max-w-7xl mx-auto rounded-2xl px-6 py-3 shadow-xl border"
+        style={{
+          background: 'rgba(9, 9, 11, 0.75)',
+          backdropFilter: 'blur(20px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+          borderColor: 'rgba(255, 255, 255, 0.5)',
+          boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.1)'
+        }}
+      >
 
         <div className="flex items-center justify-between">
           {/* LOGO */}
@@ -23,12 +32,12 @@ const Navbar = () => {
             <img
               src="/aegis-navbar.png"
               alt="Aegis"
-              className="relative h-12 w-22 object-contain rounded-xl"
+              className="relative h-12 w-24 object-contain rounded-x1"
             />
           </Link>
 
           {/* DESKTOP */}
-          <div className="hidden md:flex gap-2 font-mono text-sm">
+          <div className="hidden md:flex gap-2 text-sm" style={{ fontFamily: '"Proza Libre3", sans-serif' }}>
             {navItems.map(item => (
               <Link
                 key={item.label}
@@ -52,6 +61,7 @@ const Navbar = () => {
           <Link
             to="/contact"
             className="hidden md:inline-flex px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-400 text-white font-mono text-sm font-semibold transition-all duration-300 shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/30"
+            style={{ fontFamily: '"Proza Libre3", sans-serif' }}
           >
             Contact Aegis
           </Link>

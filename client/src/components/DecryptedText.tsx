@@ -88,7 +88,7 @@ export default function DecryptedText({
     return (
         <motion.span
             ref={ref}
-            className={`inline-block font-mono ${className}`}
+            className={`inline-block ${className}`}
             onMouseEnter={
                 animateOn === "hover" ? () => setHovered(true) : undefined
             }
