@@ -38,13 +38,13 @@ const LetterGlitch = ({
     const lastGlitchTime = useRef(Date.now());
 
     const lettersAndSymbols = Array.from(characters);
-   const density =
-  window.innerWidth < 640 ? 1.9 :
-  window.innerWidth < 1024 ? 1.9 :
-  1.5;
+    const density =
+        window.innerWidth < 640 ? 1.9 :
+            window.innerWidth < 1024 ? 1.9 :
+                1.5;
     const fontSize = 16;
     const charWidth = 10 * density;
-const charHeight = 20 * density;
+    const charHeight = 20 * density;
 
     const getRandomChar = () => {
         return lettersAndSymbols[Math.floor(Math.random() * lettersAndSymbols.length)];
@@ -162,7 +162,7 @@ const charHeight = 20 * density;
         let needsRedraw = false;
         letters.current.forEach(letter => {
             if (letter.colorProgress < 1) {
-              letter.colorProgress += 0.02;
+                letter.colorProgress += 0.02;
                 if (letter.colorProgress > 1) letter.colorProgress = 1;
 
                 const startRgb = hexToRgb(letter.color);
