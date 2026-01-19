@@ -3,6 +3,122 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Proza Libre Font - Local Files */
+@font-face {
+  font-family: 'Proza Libre1';
+  src: url('../assets/Fonts/ProzaLibre/ProzaLibre-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Proza Libre2';
+  src: url('../assets/Fonts/ProzaLibre/ProzaLibre-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Proza Libre3';
+  src: url('../assets/Fonts/ProzaLibre/ProzaLibre-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Proza Libre4';
+  src: url('../assets/Fonts/ProzaLibre/ProzaLibre-MediumItalic.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Proza Libre5';
+  src: url('../assets/Fonts/ProzaLibre/ProzaLibre-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Proza Libre6';
+  src: url('../assets/Fonts/ProzaLibre/ProzaLibre-SemiBoldItalic.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Proza Libre7';
+  src: url('../assets/Fonts/ProzaLibre/ProzaLibre-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Proza Libre8';
+  src: url('../assets/Fonts/ProzaLibre/ProzaLibre-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Proza Libre9';
+  src: url('../assets/Fonts/ProzaLibre/ProzaLibre-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Proza Libre10';
+  src: url('../assets/Fonts/ProzaLibre/ProzaLibre-ExtraBoldItalic.ttf') format('truetype');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Qontra Font - Local File */
+@font-face {
+  font-family: 'Qontra1';
+  src: url('../assets/Fonts/Qontra/Qontra.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Ikaros Font - Local Files */
+@font-face {
+  font-family: 'Ikaros1';
+  src: url('../assets/Fonts/Ikaros/Ikaros-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ikaros2';
+  src: url('../assets/Fonts/Ikaros/Ikaros-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Ailerons Font - Local File */
+@font-face {
+  font-family: 'Ailerons';
+  src: url('../assets/Fonts/Ailerons/Ailerons Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --color-primary-50: #eff6ff;
   --color-primary-100: #dbeafe;
@@ -134,19 +250,111 @@ body {
   }
 }
 
+
 .animate-scroll {
   animation: scroll var(--animation-duration) var(--animation-direction) linear infinite;
 }
 
-/* Pause animation on hover - no jumping! */
-.gallery-hover-slow:hover .animate-scroll,
+/* Gallery hover pause functionality */
+.gallery-hover-slow:hover .animate-scroll {
+  animation-play-state: paused;
+}
+
 .gallery-hover-medium:hover .animate-scroll {
   animation-play-state: paused;
 }
 
-.stagger-1 {
-  animation-delay: 0.1s;
+.gallery-hover-fast:hover .animate-scroll {
+  animation-play-state: paused;
 }
+
+
+/* Breathe animation for "Welcome to" text */
+@keyframes breathe {
+  0% {
+    opacity: 0;
+    filter: blur(20px);
+    transform: scale(0.95);
+  }
+
+  30% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: scale(1);
+  }
+
+  70% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    filter: blur(20px);
+    transform: scale(0.95);
+  }
+}
+
+.breathe-animation {
+  animation: breathe 2s ease-in-out forwards;
+}
+
+/* Fade in from blur animation for tagline */
+@keyframes fade-in-blur {
+  0% {
+    opacity: 0;
+    filter: blur(20px);
+    transform: translateY(10px);
+  }
+
+  100% {
+    opacity: 1;
+    filter: none;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-blur {
+  animation: fade-in-blur 1s ease-out forwards;
+}
+
+/* Neon glow effect for AEGIS */
+.neon-glow-active {
+  text-shadow:
+    0 0 10px rgba(168, 85, 247, 0.8),
+    0 0 20px rgba(168, 85, 247, 0.6),
+    0 0 30px rgba(168, 85, 247, 0.4),
+    0 0 40px rgba(168, 85, 247, 0.3),
+    0 0 70px rgba(168, 85, 247, 0.2),
+    0 0 100px rgba(168, 85, 247, 0.1);
+  animation: neon-pulse 10s ease-in-out infinite;
+}
+
+@keyframes neon-pulse {
+
+  0%,
+  100% {
+    text-shadow:
+      0 0 10px rgba(168, 85, 247, 0.8),
+      0 0 20px rgba(168, 85, 247, 0.6),
+      0 0 30px rgba(168, 85, 247, 0.4),
+      0 0 40px rgba(168, 85, 247, 0.3),
+      0 0 70px rgba(168, 85, 247, 0.2),
+      0 0 100px rgba(168, 85, 247, 0.1);
+  }
+
+  50% {
+    text-shadow:
+      0 0 15px rgba(168, 85, 247, 1),
+      0 0 30px rgba(168, 85, 247, 0.8),
+      0 0 45px rgba(168, 85, 247, 0.6),
+      0 0 60px rgba(168, 85, 247, 0.5),
+      0 0 90px rgba(168, 85, 247, 0.3),
+      0 0 120px rgba(168, 85, 247, 0.2);
+  }
+}
+
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
