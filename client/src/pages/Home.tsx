@@ -105,7 +105,7 @@ const Home = () => {
                                         speed={100}
                                         scrambleSpeed={35}
                                         characters="ABCDEFGHJKLMNPQRSTUVWXYZ123456789!@#$%&*^"
-                                        className="drop-shadow-[0_0_25px_rgba(168,85,247,0.8)]"
+                                        className="drop-shadow-[0_0_5px_rgba(168,85,247,0.8)]"
                                     />
                                 </h1>
                             )}
