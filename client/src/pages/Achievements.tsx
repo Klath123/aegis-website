@@ -6,7 +6,7 @@ import AegisRobot from "../components/robot/AegisRobot";
 const missions = [
   {
     name: "Rohan K",
-    image: "/Achievmembers/",
+    image: "", // Make sure this is a valid file path like "/Achievmembers/rohan.jpg"
     achievements: ["GSoC 2025", "SIH Finalist", "National Level CTF Winner"],
   },
   {
@@ -15,17 +15,39 @@ const missions = [
     achievements: ["Hackathon Winner", "Core Security Team", "Bug Bounty Hunter"],
   },
   {
+    name: "Adithya B Shetty",
+    image: "/members/vikram.jpg", // Placeholder
+    achievements: ["Kernel Dev", "Exploit Researcher", "Hardware Hacking"],
+  },
+  {
+    name: "Sita A S",
+    image: "/members/vikram.jpg", // Placeholder
+    achievements: ["Kernel Dev", "Exploit Researcher", "Hardware Hacking"],
+  },
+  {
     name: "Vikram R",
     image: "/members/vikram.jpg", // Placeholder
     achievements: ["Kernel Dev", "Exploit Researcher", "Hardware Hacking"],
   },
+    {
+    name: "Yash",
+    image: "/achivmembers/yash.png", // Make sure this is a valid file path like "/Achievmembers/rohan.jpg"
+    achievements: ["GSoC 2025", "SIH Finalist", "National Level CTF Winner"],
+  },
+  
 ];
 
-/* ---------------- PAGE ---------------- */
+/* ---------------- PAGE COMPONENT ---------------- */
 
 export default function Achievements() {
+  const [showIntro, setShowIntro] = useState(true);
+
   return (
     <div className="min-h-screen px-4 pt-32 pb-24 max-w-7xl mx-auto font-mono text-white overflow-x-hidden">
+      
+      {/* INTRO OVERLAY */}
+      {showIntro && <IntroOverlay onComplete={() => setShowIntro(false)} />}
+
       {/* TITLE */}
       <AchievementTitle />
 
@@ -45,14 +67,13 @@ function AchievementTitle() {
   const TITLE = "ACHIEVEMENT LOG";
   
   // OPTIMIZATION: Smaller width for mobile (w-7), larger for desktop (w-14)
-  // This ensures the robot steps correctly on all screens.
   const CHAR_WIDTH_CLASS = "w-7 sm:w-10 md:w-14"; 
   const TEXT_SIZE = "text-xl sm:text-3xl md:text-5xl";
 
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % TITLE.length);
-    }, 400);
+    }, 800);
 
     return () => clearInterval(interval);
   }, [TITLE.length]);
@@ -102,7 +123,7 @@ function AchievementTitle() {
   );
 }
 
-/* ---------------- 3D CARD (Robot on Right + New Effect) ---------------- */
+/* ---------------- 3D ID CARD (Side-by-Side Layout) ---------------- */
 
 function MissionCard({ agent }: { agent: any }) {
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
@@ -137,7 +158,7 @@ function MissionCard({ agent }: { agent: any }) {
     >
       <div
         className={`
-          relative group rounded-2xl p-8
+          relative group rounded-2xl p-6
           border border-white/10
           bg-black/90 backdrop-blur-xl
           overflow-visible
@@ -151,83 +172,132 @@ function MissionCard({ agent }: { agent: any }) {
             : "0 0 0 0 rgba(0,0,0,0)"
         }}
       >
-        {/* --- NEW EFFECT: Circuit Grid Background --- */}
+        {/* --- BACKGROUND EFFECTS --- */}
         <div 
           className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none"
           style={{
-            backgroundImage: `
-              linear-gradient(to right, #22d3ee 1px, transparent 1px),
-              linear-gradient(to bottom, #22d3ee 1px, transparent 1px)
-            `,
+            backgroundImage: `linear-gradient(to right, #22d3ee 1px, transparent 1px), linear-gradient(to bottom, #22d3ee 1px, transparent 1px)`,
             backgroundSize: "20px 20px",
             maskImage: "radial-gradient(circle at center, black, transparent 80%)"
           }}
         />
-
-        {/* --- NEW EFFECT: Cyberpunk Corner Brackets --- */}
-        {/* Top Left */}
         <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-cyan-500 rounded-tl-xl opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 -translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0" />
-        {/* Bottom Right */}
         <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-cyan-500 rounded-br-xl opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0" />
 
-        
-        {/* --- FIX: ROBOT MOVED TO TOP RIGHT CORNER --- */}
+        {/* --- ROBOT (Top Right Corner) --- */}
         <div
           className="absolute -top-10 -right-4 w-16 h-16
                      opacity-0 group-hover:opacity-100
                      transition-all duration-500 delay-75
                      group-hover:-translate-y-2
                      pointer-events-none"
-          style={{ 
-            transform: "translateZ(60px) rotate(10deg)", // Pops out & rotates slightly
-          }} 
+          style={{ transform: "translateZ(60px) rotate(10deg)" }} 
         >
           <AegisRobot small />
         </div>
 
-        {/* LABEL */}
-        <div
-          className="absolute -top-3 left-6 px-3 py-1 text-[10px] tracking-[0.2em] font-bold
-                     bg-cyan-950 text-cyan-400 border border-cyan-500/30 rounded-full
-                     shadow-[0_0_10px_rgba(34,211,238,0.2)]"
-          style={{ transform: "translateZ(30px)" }}
-        >
-          STATUS: ACTIVE
-        </div>
-
-        <div className="flex flex-col items-center gap-6 mt-4" style={{ transform: "translateZ(20px)" }}>
-          <div className="relative group-hover:scale-105 transition-transform duration-300">
-            {/* Image Glow */}
-            <div className="absolute -inset-1 bg-gradient-to-tr from-cyan-400 to-blue-600 rounded-full blur opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            
-            <img
+        {/* --- MAIN CONTENT ROW --- */}
+        <div className="flex items-center gap-6" style={{ transform: "translateZ(20px)" }}>
+          
+          {/* 1. IMAGE (Left Side) with Target Lock */}
+          <div className="relative shrink-0 group-hover:scale-105 transition-transform duration-300">
+             {/* Glow */}
+             <div className="absolute -inset-1 bg-gradient-to-tr from-cyan-400 to-blue-600 rounded-full blur opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+             {/* Spinning Rings */}
+             <div className="absolute -inset-3 border border-dashed border-cyan-500/60 rounded-full opacity-0 group-hover:opacity-100 animate-[spin_4s_linear_infinite] pointer-events-none" />
+             <div className="absolute -inset-3 border-2 border-transparent border-t-cyan-400/80 border-b-cyan-400/80 rounded-full opacity-0 group-hover:opacity-100 animate-[spin_2s_linear_infinite_reverse] pointer-events-none" />
+             
+             {/* Photo */}
+             <img
               src={agent.image}
               alt={agent.name}
-              className="relative w-24 h-24 rounded-full object-cover border-2 border-white/10 group-hover:border-transparent transition-colors bg-neutral-900"
+              className="relative w-20 h-20 rounded-full object-cover border-2 border-white/10 group-hover:border-transparent transition-colors bg-neutral-900 z-10"
             />
           </div>
 
-          <div className="text-center w-full">
-            <h2 className="text-xl mb-1 font-bold tracking-wider text-white group-hover:text-cyan-300 transition-colors">
+          {/* 2. NAME & INFO (Right Side) */}
+          <div className="flex flex-col items-start w-full">
+            
+            {/* Unique Font Style: Gradient Text + Heavy Weight */}
+            <h2 className="text-2xl font-black tracking-tighter uppercase mb-1
+                           bg-gradient-to-r from-white via-cyan-100 to-cyan-400 
+                           bg-clip-text text-transparent
+                           group-hover:to-white transition-all">
               {agent.name}
             </h2>
 
-            <p className="text-xs font-mono text-emerald-400 mb-5 tracking-widest opacity-80">
-               // MISSION ACCOMPLISHED
+            <p className="text-[10px] font-mono text-emerald-400 mb-3 tracking-widest opacity-80 flex items-center gap-2">
+               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"/> 
+               MISSION ACCOMPLISHED
             </p>
-
-            <div className="flex flex-wrap justify-center gap-2">
-              {agent.achievements.map((badge: string, idx: number) => (
-                <span
-                  key={idx}
-                  className="px-2 py-1 text-[10px] uppercase font-semibold tracking-wider rounded bg-white/5 text-white/60 border border-white/5 group-hover:border-cyan-500/30 group-hover:text-cyan-100 transition-colors"
-                >
-                  {badge}
-                </span>
-              ))}
-            </div>
           </div>
         </div>
+
+        {/* --- BADGES (Bottom Row) --- */}
+        <div 
+          className="mt-6 pt-4 border-t border-white/5 flex flex-wrap gap-2" 
+          style={{ transform: "translateZ(10px)" }}
+        >
+          {agent.achievements.map((badge: string, idx: number) => (
+            <span
+              key={idx}
+              className="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded-sm 
+                         bg-cyan-950/30 text-cyan-400/80 border border-cyan-900/50 
+                         group-hover:border-cyan-400/50 group-hover:text-cyan-100 
+                         group-hover:bg-cyan-900/40 transition-all"
+            >
+              {badge}
+            </span>
+          ))}
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+/* ---------------- INTRO OVERLAY COMPONENT ---------------- */
+function IntroOverlay({ onComplete }: { onComplete: () => void }) {
+  const [step, setStep] = useState(0);
+
+  useEffect(() => {
+    // Timeline of events (in milliseconds)
+    const timers = [
+      setTimeout(() => setStep(1), 500),  // Show Line 1
+      setTimeout(() => setStep(2), 1500), // Show Line 2
+      setTimeout(() => setStep(3), 2500), // Fade Out
+      setTimeout(onComplete, 3000),       // Remove from DOM
+    ];
+    return () => timers.forEach(clearTimeout);
+  }, [onComplete]);
+
+  if (step === 4) return null;
+
+  return (
+    <div
+      className={`fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center font-mono transition-opacity duration-700 ${
+        step === 3 ? "opacity-0 pointer-events-none" : "opacity-100"
+      }`}
+    >
+      <div className="space-y-4 text-center">
+        {/* Line 1 */}
+        <div className={`text-cyan-500 tracking-[0.3em] text-sm sm:text-base transition-all duration-700 transform ${
+            step >= 1 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}>
+          // SYSTEM INITIALIZED
+        </div>
+
+        {/* Line 2 (The Honor Line) */}
+        <h1 className={`text-white font-bold text-2xl sm:text-4xl tracking-widest transition-all duration-700 delay-100 transform ${
+            step >= 2 ? "opacity-100 scale-100" : "opacity-0 scale-95"
+          }`}>
+          HONORING THE <span className="text-cyan-400">VANGUARD</span>
+        </h1>
+        
+        {/* Loading Bar */}
+         <div className={`w-48 h-1 bg-gray-800 mx-auto mt-8 rounded-full overflow-hidden transition-opacity duration-500 ${step >= 1 ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="h-full bg-cyan-500 animate-[width_2s_ease-in-out_forwards]" style={{ width: step >= 1 ? '100%' : '0%' }} />
+         </div>
       </div>
     </div>
   );
