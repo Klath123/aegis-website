@@ -10,6 +10,8 @@ const Events = lazy(() => import("./pages/Events.tsx"));
 const Contact = lazy(() => import("./pages/Contact.tsx"));
 const Achievements = lazy(() => import("./pages/Achievements.tsx"));
 const Members = lazy(() => import("./pages/Members.tsx"));
+const SandboxDetail = lazy(() => import("./components/SandboxDetail.tsx"));
+const GlitchcraftDetail = lazy(() => import("./components/GlitchcraftDetail.tsx"));
 
 // Simple loading fallback
 const PageLoader = () => (
@@ -42,6 +44,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="events" element={<Events />} />
+          <Route path="events/sandbox" element={<SandboxDetail />} />
+          <Route path="events/glitchcraft" element={<GlitchcraftDetail />} />
           <Route path="members" element={<Members />} />
           <Route path="contact" element={<Contact />} />
           <Route path="achievements" element={<Achievements />} />
