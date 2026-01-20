@@ -1,47 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import { Terminal, Lock, Code, Zap, KeyRound, Target } from 'lucide-react';
+// import React, { useState, useEffect } from 'react';
+import { Terminal, Lock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 
-interface GlitchTextProps {
-  text: string;
-  className?: string;
-}
+// interface GlitchTextProps {
+//   text: string;
+//   className?: string;
+// }
 
-const GlitchText: React.FC<GlitchTextProps> = ({ text, className = "" }) => {
-  const [displayText, setDisplayText] = useState<string>(text);
+// const GlitchText: React.FC<GlitchTextProps> = ({ text, className = "" }) => {
+//   const [displayText, setDisplayText] = useState<string>(text);
   
-  useEffect(() => {
-    const glitchInterval = setInterval(() => {
-      const chars = '!<>-_\\/[]{}—=+*^?#________';
-      let iterations = 0;
+//   useEffect(() => {
+//     const glitchInterval = setInterval(() => {
+//       const chars = '!<>-_\\/[]{}—=+*^?#________';
+//       let iterations = 0;
       
-      const glitchTimer = setInterval(() => {
-        setDisplayText(
-          text.split('').map((_char, index) => {
-            if (index < iterations) return text[index];
-            return chars[Math.floor(Math.random() * chars.length)];
-          }).join('')
-        );
+//       const glitchTimer = setInterval(() => {
+//         setDisplayText(
+//           text.split('').map((_char, index) => {
+//             if (index < iterations) return text[index];
+//             return chars[Math.floor(Math.random() * chars.length)];
+//           }).join('')
+//         );
         
-        iterations += 1/2;
+//         iterations += 1/2;
         
-        if (iterations >= text.length) {
-          clearInterval(glitchTimer);
-          setDisplayText(text);
-        }
-      }, 30);
-    }, 5000);
+//         if (iterations >= text.length) {
+//           clearInterval(glitchTimer);
+//           setDisplayText(text);
+//         }
+//       }, 30);
+//     }, 5000);
     
-    return () => clearInterval(glitchInterval);
-  }, [text]);
+//     return () => clearInterval(glitchInterval);
+//   }, [text]);
   
-  return <span className={className}>{displayText}</span>;
-};
+//   return <span className={className}>{displayText}</span>;
+// };
 
 const Events: React.FC = () => {
   const navigate = useNavigate();
-  const [activeCard, setActiveCard] = useState<string | null>(null);
+  // const [activeCard, setActiveCard] = useState<string | null>(null);
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden pt-24">
@@ -66,8 +66,8 @@ const Events: React.FC = () => {
 
           {/* SANDBOX */}
           <div
-            onMouseEnter={() => setActiveCard('sandbox')}
-            onMouseLeave={() => setActiveCard(null)}
+            // onMouseEnter={() => setActiveCard('sandbox')}
+            // onMouseLeave={() => setActiveCard(null)}
             className="relative border border-cyan-500/20 rounded-xl bg-black/70 backdrop-blur-sm
                        transition-all duration-300 hover:border-cyan-400/50 hover:-translate-y-1"
           >
@@ -110,8 +110,8 @@ const Events: React.FC = () => {
 
           {/* GLITCHCRAFT */}
           <div
-            onMouseEnter={() => setActiveCard('glitchcraft')}
-            onMouseLeave={() => setActiveCard(null)}
+            // onMouseEnter={() => setActiveCard('glitchcraft')}
+            // onMouseLeave={() => setActiveCard(null)}
             className="relative border border-purple-500/20 rounded-xl bg-black/70 backdrop-blur-sm
                        transition-all duration-300 hover:border-purple-400/50 hover:-translate-y-1"
           >
